@@ -11,16 +11,6 @@ class AImboBaseHero;
 class AImboBaseEnemy;
 class USoundCue;
 
-USTRUCT()
-struct FImboTracedEnemy
-{
-	GENERATED_BODY()
-
-	bool IsVisit = false;
-	AImboBaseEnemy* Target = nullptr;
-};
-
-
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class IMBOGAME_API UImboTargetComponent : public UActorComponent
@@ -86,7 +76,7 @@ private:
 /* Target Setup : Tab */
 private:
 	bool IsTab = false;
-	TArray<TObjectPtr<FImboTracedEnemy>> TraceTargets;
+	TArray<TObjectPtr<AImboBaseEnemy>> TraceTargets;
 
 
 /* Owner */

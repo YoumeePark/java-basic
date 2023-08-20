@@ -210,9 +210,7 @@ void UImboTargetComponent::SetTabTraceTarget()
 				if (Actor.GetActor()->GetClass() == OwnerCharacter.GetClass())
 					continue;
 
-				FImboTracedEnemy temp;
-				temp.Target = Cast<AImboBaseEnemy>(Actor.GetActor());
-				TraceTargets.AddUnique(&temp);
+				TraceTargets.AddUnique(Cast<AImboBaseEnemy>(Actor.GetActor()));
 			}
 		}
 
