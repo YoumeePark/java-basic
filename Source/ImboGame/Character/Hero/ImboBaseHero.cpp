@@ -141,22 +141,76 @@ void AImboBaseHero::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 void AImboBaseHero::OnMove(const FInputActionValue& Value)
 {
-	if(bClickMouseRight == true)
+	if (Controller != nullptr)
 	{
 		const FVector2D movementVector = Value.Get<FVector2D>();
 
-		if (Controller != nullptr)
-		{
-			const FRotator Rotation = Controller->GetControlRotation();
-			const FRotator YawRotation(0, Rotation.Yaw, 0);
+		const FRotator Rotation = Controller->GetControlRotation();
+		const FRotator YawRotation(0, Rotation.Yaw, 0);
 
-			const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-			const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
-			AddMovementInput(ForwardDirection, movementVector.Y);
-			AddMovementInput(RightDirection, movementVector.X);
-		}
+		AddMovementInput(ForwardDirection, movementVector.Y);
+		AddMovementInput(RightDirection, movementVector.X);
 	}
+
+#pragma region 조건으로 이동
+	//if(bClickMouseRight == true)
+	//{
+	//	//const FVector2D movementVector = Value.Get<FVector2D>();
+
+	//	if (Controller != nullptr)
+	//	{
+	//		const FRotator Rotation = Controller->GetControlRotation();
+	//		const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+	//		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+	//		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+
+	//		AddMovementInput(ForwardDirection, movementVector.Y);
+	//		AddMovementInput(RightDirection, movementVector.X);
+	//	}
+	//}
+	//else
+	//{
+	//	FEnhancedActionKeyMapping WKeyMapping;
+	//	if (DefaultMappingContext)
+	//	{
+	//		//TArray<FInputActionKeyMapping> ActionMappings = DefaultMappingContext-> //GetActionMappings();
+	//		TArray<FEnhancedActionKeyMapping> ActionMappings = DefaultMappingContext->GetMappings(); //GetActionMappings();
+	//		for (const FEnhancedActionKeyMapping& ActionMapping : ActionMappings)
+	//		{
+	//			if (ActionMapping.Key.GetFName() == FName("W"))
+	//			{
+	//				WKeyMapping = ActionMapping;
+	//				
+	//				break;
+	//			}
+	//		}
+
+	//		// WKeyMapping을 사용하여 원하는 작업을 수행합니다.
+	//		if (WKeyMapping.Key.IsValid())
+	//		{
+	//			ImboLog::Print(WKeyMapping.Key.ToString());
+
+	//			const FRotator Rotation = Controller->GetControlRotation();
+	//			const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+	//			const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+	//			const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+
+	//			AddMovementInput(ForwardDirection, movementVector.Y);
+	//			AddMovementInput(RightDirection, movementVector.X);
+	//		}
+	//		else
+	//		{
+
+	//		}
+	//			// W 키에 대한 바인딩을 찾지 못한 경우 처리할 내용을 여기에 작성합니다.
+	//	}
+	//}
+#pragma endregion
 }
 
 void AImboBaseHero::OnLook(const FInputActionValue& Value)
@@ -164,13 +218,13 @@ void AImboBaseHero::OnLook(const FInputActionValue& Value)
 	if (bClickMouseLeft || bClickMouseRight)
 	{
 		// input is a Vector2D
-		FVector2D LookAxisVector = Value.Get<FVector2D>();
+		FVector2D lookAxisVector = Value.Get<FVector2D>();
 
 		if (Controller != nullptr)
 		{
 			// add yaw and pitch input to controller
-			AddControllerYawInput(LookAxisVector.X);
-			AddControllerPitchInput(LookAxisVector.Y * -1);
+			AddControllerYawInput(lookAxisVector.X);
+			AddControllerPitchInput(lookAxisVector.Y * -1);
 		}
 	}
 }
@@ -224,8 +278,6 @@ void AImboBaseHero::OnESC(const FInputActionValue& Value)
 {
 	auto inputValue = Value.Get<bool>();
 	ImboLog::Print(inputValue);
-
-	
 
 	TargetComponent->EndTargeting();
 }
