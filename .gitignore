@@ -1,0 +1,32 @@
+###########################
+#    UE Generated Files   #
+###########################
+UE5_ImpossibleBosses.sln
+.vs/*
+Binaries/*
+Build/*
+DerivedDataCache/*
+Intermediate/*
+Saved/*
+
+
+###########################
+#     UE Assets Files     #
+###########################
+# Content/*
+
+
+###########################
+#     UE Plugin Files     #
+###########################
+Plugins/*/Binaries/*
+Plugins/*/Intermediate/*
+
+
+###########################
+#  Rider Generated Files  #
+###########################
+.idea/*
+*.sln.DotSettings.user
+# lfs/*
+hooks/*
