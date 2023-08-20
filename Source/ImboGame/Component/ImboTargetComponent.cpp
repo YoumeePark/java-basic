@@ -51,16 +51,44 @@ void UImboTargetComponent::EndTargeting()
 void UImboTargetComponent::StartTabTargeting()
 {
 	if(IsTab)
-		ChangeTabTarget();
-
-	SetTabTraceTarget();
-	ChangeTabTarget();
+	{
+		TabChangeTarget();
+		NextTabChangeTarget();
+	}
+	else
+	{
+		SetTabTraceTarget();
+		TabChangeTarget();
+	}
 }
 
-void UImboTargetComponent::ChangeTabTarget()
+void UImboTargetComponent::TabChangeTarget()
 {
 	if(TraceTargets.IsEmpty() != true)
 	{
+		if(IsTab == true)
+		{
+			AImboBaseEnemy* target;
+			for (uint32 i = 0; i < TraceTargets.GetTypeSize(); ++i)
+			{
+				target = TraceTargets[i];
+
+				if (target != CurrentTarget)
+				{
+
+				}
+			}
+
+			//for (AImboBaseEnemy* target : TraceTargets)
+			//{
+			//	if(target != CurrentTarget)
+			//	{
+			//		
+			//	}
+			//}
+		}
+
+
 		AImboBaseEnemy* nearestEnemy = nullptr;
 		FVector ownerLocation = OwnerCharacter->GetActorLocation();
 
@@ -100,9 +128,46 @@ void UImboTargetComponent::ChangeTabTarget()
 	}
 }
 
-void UImboTargetComponent::NextChangeTabTarget()
+void UImboTargetComponent::NextTabChangeTarget()
 {
-	
+	if (IsTab == true)
+	{
+		if (TraceTargets.IsEmpty() != true)
+		{
+			AImboBaseEnemy* target = nullptr;
+			for (uint32 i = 0; i < TraceTargets.GetTypeSize(); ++i)
+			{
+				target = TraceTargets[i];
+
+				if (target == CurrentTarget)
+					continue;
+				else
+				{
+					auto currentTargetDistance = FVector::Dist(OwnerCharacter->GetActorLocation(), CurrentTarget->GetActorLocation());
+					auto newTargetDistance = FVector::Dist(OwnerCharacter->GetActorLocation(), target->GetActorLocation());
+
+					if(newTargetDistance > currentTargetDistance)
+					{
+						//이전
+						Cast<IImboTargetAgentInterface>(CurrentTarget.Get())->SetHiddenInGameTargetDecal(true);
+
+						//새거
+						CurrentTarget = target;
+						target->SetHiddenInGameTargetDecal(false);
+						UGameplayStatics::PlaySound2D(GetWorld(), TargetingSound.Get());
+					}
+				}
+			}
+
+			//for (AImboBaseEnemy* target : TraceTargets)
+			//{
+			//	if(target != CurrentTarget)
+			//	{
+			//		
+			//	}
+			//}
+		}
+	}
 }
 
 void UImboTargetComponent::StartClickTargeting()

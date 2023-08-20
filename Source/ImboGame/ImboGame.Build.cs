@@ -8,7 +8,7 @@ public class ImboGame : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-
+		
 		/* Include Paths */
 		{
 			//PublicIncludePaths.Add(ModuleDirectory);
@@ -70,7 +70,7 @@ public class ImboGame : ModuleRules
 					//"CommonInput",
 					//"GameSettings",
 					//"CommonGame",
-					//"CommonUser", //Lyra Plug-in, ÀÏ¹Ý »ç¿ëÀÚ ÇÃ·¯±×ÀÎÀ» À§ÇÑ ¸ðµâ
+					//"CommonUser", //Lyra Plug-in, ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//"GameSubtitles",
 					//"GameplayMessageRuntime",
 					//"AudioMixer",

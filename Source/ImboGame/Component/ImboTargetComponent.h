@@ -33,8 +33,8 @@ public:
 	void StartTabTargeting();
 private:
 	void SetTabTraceTarget();
-	void ChangeTabTarget();
-	void NextChangeTabTarget();
+	void TabChangeTarget();
+	void NextTabChangeTarget();
 
 
 /* Mouse Click Targeting */
@@ -55,7 +55,7 @@ public:
 		TObjectPtr<USoundCue> TargetingSound;
 
 	UPROPERTY(EditAnywhere)
-		float TraceRadius = 1000.0f;
+		float TraceRadius = 2000.0f;
 
 	UPROPERTY(EditAnywhere)
 		float InteropSpeed = 2.5f;
